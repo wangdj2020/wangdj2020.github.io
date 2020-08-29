@@ -1,6 +1,9 @@
-.bundle
-.sass-cache
-Gemfile.lock
-.jekyll-cache
-_site
-*.gem
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+.vscode/
+yarn.lock
