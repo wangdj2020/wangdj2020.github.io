@@ -1,6 +1,6 @@
 {
   "name": "hexo-site",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "hexo": {
     "version": "5.1.1"
@@ -21,6 +21,7 @@
     "hexo-server": "^2.0.0",
     "hexo-theme-icarus": "https://github.com/ppoffice/hexo-theme-icarus",
     "inferno": "^7.3.3",
-    "inferno-create-element": "^7.3.3"
+    "inferno-create-element": "^7.3.3",
+    "canvas": "^2.5.0"
   }
 }
