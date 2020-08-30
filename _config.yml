@@ -5,10 +5,11 @@
 # Site
 title: Learn & Record
 subtitle: 
-description: 王东杰--个人博客
+description: 王东杰的个人博客
+keywords: blog,wangdongjie,wdj
 author: 王东杰
 language: zh-CN
-timezone:
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'

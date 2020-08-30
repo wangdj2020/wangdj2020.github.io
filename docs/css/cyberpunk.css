@@ -10254,22 +10254,24 @@ body {
 body > .section {
   flex-grow: 1;
 }
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  border-radius: 3px;
-  background: rgba(0,0,0,0.06);
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 3px;
-  background: rgba(0,0,0,0.12);
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,0.24);
+@media screen and (min-width: 1088px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 3px;
+    background: rgba(0,0,0,0.06);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: rgba(0,0,0,0.12);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.24);
+  }
 }
 .ml-0,
 .mx-0 {
@@ -10890,6 +10892,7 @@ article.article .content .message.message-immersive .message-body {
   width: 1.2em;
   height: 1.2em;
   font-size: 1.2em;
+  vertical-align: bottom;
 }
 .article-licensing .licensing-meta a {
   color: inherit;
