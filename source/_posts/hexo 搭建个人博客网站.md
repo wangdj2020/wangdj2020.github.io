@@ -1,16 +1,21 @@
 ---
-title: hexo 搭建个人博客网站
+title: Hexo 搭建个人博客网站
 date: 2020-08-30 11:10:21
 toc: true
+cover:
+thumbnail: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-30-040528.png!1000px
 tags: 
 - hexo
 categories:
-- Learn
+- 生命在于学习
 - Blog
----
-最近想好好整一整个人博客，搜索一番，比较火的有三种方式：`Jekyll`、`Hugo`、`Hexo`。最终优秀的主题、中文文档成了我选择 `hexo` 的主要原因。
 
-[【hexo 官方网站】](https://hexo.io/zh-cn/)    [【icarus 主题】](https://github.com/ppoffice/hexo-theme-icarus)    [【next 主题】](https://github.com/next-theme/hexo-theme-next)
+
+---
+
+最近想好好整一整个人博客，搜索一番，比较火的有三种方式：`Jekyll`、`Hugo`、`Hexo`。最终优秀的主题、中文文档成了我选择 `Hexo` 的主要原因。
+
+[<u>【hexo 官方网站】</u>](https://hexo.io/zh-cn/)        [<u>【icarus 主题】</u>](https://github.com/ppoffice/hexo-theme-icarus)        [<u>【next 主题】</u>](https://github.com/next-theme/hexo-theme-next)
 
 <!-- more -->
 
@@ -45,7 +50,7 @@ hexo server
 
 主要在 _config.yml 、 _config.icarus.yml 、 _config.post.yml
 
- > _config.yml
+#### _config.yml
 
 ```yaml
 # Hexo Configuration
@@ -153,7 +158,7 @@ githubEmojis:
 
 ```
 
-> _config.icarus.yml
+#### _config.icarus.yml
 
 ```yaml
 # Version of the configuration file
@@ -484,7 +489,7 @@ providers:
 
 ```
 
-> _config.post.yml
+#### _config.post.yml
 
 _config.post.yml 文件中的配置是对 博客页面的细分配置
 
@@ -646,11 +651,44 @@ git push
 
 
 
-## 写作技巧
+## 写作相关说明
 
-新建博客
+### 新建文章（ 默认使用 post.md 模板）
 
 ```bash
 hexo new "hello world"
+```
+
+### 文章头部
+
+```
+---
+title: Hexo 搭建个人博客网站
+date: 2020-08-30 11:10:21
+toc: true
+cover:
+thumbnail: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-30-040528.png!1000px
+tags: 
+- hexo
+categories:
+- 生命在于学习
+- Blog
+---
+```
+
+1. title：文章标题
+2. date：发布时间
+3. toc：是否显示目录
+4. cover：封面图
+5. thumbnail：缩略图
+6. tags：标签
+7. categories：类别
+
+### 阅读更多
+
+在文章中添加
+
+```html
+ <!-- more --> 
 ```
 
