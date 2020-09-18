@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width initial-scale=1'>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+    <title>商城库存机制研究</title>
+    <style>
+        body {
+            background-color: bisque;
+        }
+
+        p img {
+            height: 300px;
+        }
+
+        #scrollEle {
+            height: 100%;
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="controls_bar" style="position: fixed;width: 100%;height: 40px;background-color: beige;left: 0;top: 0;padding-top: 6px;padding-left: 12%;display: inline-flex;">
+        <div onclick="pause()" style="background-color: dodgerblue;color: white;width: 60px;text-align: center;
+        height: 30px;border-radius: 10%;padding-top: 6px;">
+            暂停
+        </div>
+        <div onclick="showAll()" style="background-color: dodgerblue;color: white;width: 100px;text-align: center;
+        height: 30px;border-radius: 10%;padding-top: 6px;margin-left: 30px;">
+            显示全部
+        </div>
+    </div>
+
+
+    <div id="scrollEle">
+        <div class="autotype" id="autotype">
+            <h1>商城 库存机制研究</h1>
+            <p>商城库存正常流程是 OMS推送到商城，</p>
+            <p>也可以手动新建/修改库存（在中台现有量查询）。</p>
+            <h2>OMS推送库存</h2>
+            <p>以 JYA商城为例，oms调度任务 jyaStockUploadJob (oms-inv-plugin)</p>
+            <p>---&gt; jay-inventory-service /stock/token/sycStockFromOms</p>
+            <p>程序逻辑：OMS 数据覆盖商城数据</p>
+            <p>&nbsp;</p>
+            <p>redis库存相关：</p>
+            <ul>
+                <li>
+                    <p>db3</p>
+                </li>
+                <li>
+                    <p>键有两种:</p>
+                    <ul>
+                        <li>一种是仓库：StockKey:info:36:625 其中36代表一个仓库，625代表某个sku</li>
+                        <li>一种是sku：StockKey:info:625 625代表sku</li>
+
+                    </ul>
+                </li>
+
+            </ul>
+            <p>&nbsp;</p>
+            <p>oms数据覆盖范围：</p>
+            <ol start=''>
+                <li>
+                    <p>总库存量：StockKey:info:625:allquantity</p>
+                </li>
+                <li>
+                    <p>总保留量：StockKey:info:625:savequantity</p>
+                    <p>取自待发货自提订单的订单行SKU数量，状态值：</p>
+                    <p>WAIT_BUYER_PAY、WAITING_APPROVED、WAITING_FOR_RETAINAGE、TRADE_GROUPING</p>
+                </li>
+                <li>
+                    <p>总可售量：StockKey:info:625:salequantity</p>
+                </li>
+
+            </ol>
+            <p>&nbsp;</p>
+            <p>疑似程序bug：</p>
+            <p><img src="https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-31-154805.png"
+                    referrerpolicy="no-referrer" alt="img"></p>
+            <p>saveQuantity 为该虚拟仓保留量，不过通过观察 jya商城 redis数据，并不存在这一项。</p>
+            <p>这个值为空的话，一旦有待支付的订单，第二个标注的位置就会成立，程序就会返回错误，同步不会成功。</p>
+            <p>&nbsp;</p>
+            <p>续接oms库存同步功能，接下来的步骤是将数据推到MQ：</p>
+            <ol start=''>
+                <li>库存相关（invStockInfoDTOS）---&gt; REDIS_TO_DB、TOTAL_TO_DB</li>
+                <li>占用相关（occupyList）----&gt; OCCUPY_TO_DB 暂时没有发现有适用这个规则的情况。</li>
+
+            </ol>
+            <p>&nbsp;</p>
+            <p>MQ实现在 jya-mq-service MQReceiver</p>
+            <p>对应队列：</p>
+            <ol start=''>
+                <li>
+                    <p>REDIS_TO_DB ---&gt; INV_STOCK 库存回写数据库 调用jya-inventory-service，/sotckLevel/synStockToDB，</p>
+                    <p>逻辑：allquantity -&gt; 虚拟仓 total ， savequantity -&gt; 虚拟仓 occupy</p>
+                    <p> 每个公司只能有一个虚拟仓，且必须有一个虚拟仓</p>
+                    <p> 若存在仓库对应库存数据，即 StockKey:info:36:625 这种形式的数据，</p>
+                    <p> 按照 allquantity -&gt; total , savequantity -&gt; occupy 存储。 </p>
+                </li>
+                <li>
+                    <p>TOTAL_TO_DB ---&gt; INV_TOTAL 数据记录到 hmall_inv_transaction , 事务处理查询</p>
+                </li>
+                <li>
+                    <p>OCCUPY_TO_DB ---&gt; INV_OCCUPY 数据记录到 hmall_inv_stock_occupy , 库存占用查询</p>
+                </li>
+
+            </ol>
+            <p>&nbsp;</p>
+            <h2>中台操作对库存影响</h2>
+            <p>库存管理 - 现有量查询 可以新建/编辑门店和普通仓的现有量</p>
+            <p>jya-admin InvSotcklevelController.update</p>
+            <p>---&gt; jay-inventory-service StockController.insertStockToRedis</p>
+            <p>逻辑：总现有量、总可售量，对应该仓库现有量的增减，总保留量不变。</p>
+            <p> 仓库中sku的现有量、可售量被覆盖，保留量不变。</p>
+            <p>之后 推送数据到 MQ：REDIS_TO_DB、TOTAL_TO_DB，之后的逻辑参考上面。</p>
+            <p>&nbsp;</p>
+            <h2>商城下单对库存的影响</h2>
+            <p>jya-order-service OrderController.createOrder</p>
+            <p>---&gt; jay-inventory-service /stock/token/changeVirtualWarehouse</p>
+            <p>更新redis：总保留量、总可售量，现有量不变</p>
+            <p>之后推送到MQ：REDIS_TO_DB、OCCUPY_TO_DB</p>
+            <p>订单取消时，代码回滚redis 中的值。推送到MQ：REDIS_TO_DB、OCCUPY_TO_DB</p>
+            <p>&nbsp;</p>
+            <h2>未发货订单 申请售后</h2>
+            <p>分两种情况来说明。</p>
+            <h4>1. 使用oms推送库存（原本商城代码仅退款订单是没有释放库存的操作的）</h4>
+            <p>这时候oms拉取商城的售后单，经过oms系统处理，同意退款的话，会释放oms库存。</p>
+            <p>而商城没有释放商城系统的库存，这个时候需要等下一次库存推送，商城的库存就正常了。</p>
+            <h4>2. 商城 未发货订单 同意退款后释放库存的逻辑</h4>
+            <p>这是新增的功能，这个功能使用的前提是 oms库存同步是关闭的，否则程序会出现错误。</p>
+            <p>因为释放库存需要保留量大于0，如果用户今天下单，支付，今晚上oms同步会把保留量置为0，第二天用户申请退款，同意退款的时候程序判断保留量为0，不能被释放了。</p>
+            <p>目前没有评估，保留量小于 0，对当前系统的影响。</p>
+            <p> </p>
+        </div>
+    </div>
+    <script>
+        // var windowCount = 0.5;
+
+        var scrollHeight1 = 0;
+
+        var scrollHeight2 = 0;
+
+        var halfWindow = window.innerHeight / 3;
+
+        var pauseFlag = false;
+        
+        var html = '';
+
+        $.fn.autotype = function () {
+            var $text = $(this);
+            console.log('this', this);
+            var str = $text.html(); //返回被选 元素的内容
+            length = str.length;
+            html = str;
+            var index = 0;
+            var x = $text.html('');
+            //$text.html()和$(this).html('')有区别
+            var timer = setInterval(function () {
+                if (!pauseFlag) {
+                    //substr(index, 1) 方法在字符串中抽取从index下标开始的一个的字符
+                    var current = str.substr(index, 1);
+                    if (current == '<') {
+                        //indexOf() 方法返回">"在字符串中首次出现的位置。
+                        index = str.indexOf('>', index) + 1;
+                    } else {
+                        index++;
+                    }
+                    //console.log(["0到index下标下的字符",str.substring(0, index)],["符号",index & 1 ? '_': '']);
+                    //substring() 方法用于提取字符串中介于两个指定下标之间的字符
+                    $text.html(str.substring(0, index) + '_' + (index & 1 ? '_' : '') + '<div style="height: ' + halfWindow + 'px">');
+
+                    scrollHeight1 = document.getElementById("scrollEle").scrollHeight;
+                    if (scrollHeight1 > (scrollHeight2 + 200)) {
+                        console.log('height1:' + scrollHeight1)
+                        console.log('height2:' + scrollHeight2)
+                        scrollHeight2 = scrollHeight1;
+                        window.scrollTo(0, scrollHeight1)
+                    }
+
+                    if (index >= str.length) {
+                        clearInterval(timer);
+                    }
+                }
+            },
+                10);
+        };
+        // document.getElementById("scrollEle").style.height = window.innerHeight + 'px'
+        $("#autotype").autotype();
+
+        function pause() {
+            pauseFlag = !pauseFlag;
+        }
+
+        function showAll(){
+            pauseFlag = true;
+            document.getElementById("scrollEle").innerHTML=html;
+            console.log(html)
+        }
+
+        $('#controls_bar')[0].style.display='none';
+    </script>
+</body>
+
+</html>
