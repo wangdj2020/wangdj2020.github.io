@@ -28,12 +28,12 @@ widgets:
         # Email address for the Gravatar
         gravatar: 
         # URL or path for the follow button
-        follow_link: 'https://github.com/coolwdj/'
+        follow_link: 'https://github.com/wangdj2020/'
         # Links to be shown on the bottom of the profile widget
         social_links:
             Github:
                 icon: fab fa-github
-                url: 'https://github.com/coolwdj/'
+                url: 'https://github.com/wangdj2020/'
             # Facebook:
             #     icon: fab fa-facebook
             #     url: 'https://facebook.com'

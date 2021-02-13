@@ -2,15 +2,13 @@
 title: Hexo 搭建个人博客网站
 date: 2020-08-30 11:10:21
 toc: true
-cover:
+cover: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-30-040528.png
 thumbnail: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-30-040528.png!1000px
 tags: 
 - hexo
 categories:
 - 生命在于学习
 - Blog
-
-
 ---
 
 最近想好好整一整个人博客，搜索一番，比较火的有三种方式：`Jekyll`、`Hugo`、`Hexo`。最终优秀的主题、中文文档成了我选择 `Hexo` 的主要原因。
@@ -68,7 +66,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://coolwdj.github.io/
+url: https://wangdj2020.github.io/
 root: /
 permalink: :category/:post_title/
 permalink_defaults:
@@ -361,12 +359,12 @@ widgets:
         # Email address for the Gravatar
         gravatar: 
         # URL or path for the follow button
-        follow_link: 'https://github.com/coolwdj/'
+        follow_link: 'https://github.com/wangdj2020/'
         # Links to be shown on the bottom of the profile widget
         social_links:
             Github:
                 icon: fab fa-github
-                url: 'https://github.com/coolwdj/'
+                url: 'https://github.com/wangdj2020/'
             # Facebook:
             #     icon: fab fa-facebook
             #     url: 'https://facebook.com'
@@ -524,12 +522,12 @@ widgets:
         # Email address for the Gravatar
         gravatar: 
         # URL or path for the follow button
-        follow_link: 'https://github.com/coolwdj/'
+        follow_link: 'https://github.com/wangdj2020/'
         # Links to be shown on the bottom of the profile widget
         social_links:
             Github:
                 icon: fab fa-github
-                url: 'https://github.com/coolwdj/'
+                url: 'https://github.com/wangdj2020/'
             # Facebook:
             #     icon: fab fa-facebook
             #     url: 'https://facebook.com'
