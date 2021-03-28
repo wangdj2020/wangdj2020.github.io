@@ -7,7 +7,7 @@ thumbnail: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-30-04
 tags: 
 - hexo
 categories:
-- 生命在于学习
+- Learn & Think
 - Blog
 ---
 
