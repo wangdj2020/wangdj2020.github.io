@@ -11,7 +11,9 @@ categories:
 - Blog
 ---
 
-最近想好好整一整个人博客，搜索一番，比较火的有三种方式：`Jekyll`、`Hugo`、`Hexo`。最终优秀的主题、中文文档成了我选择 `Hexo` 的主要原因。
+最近想好好整一整个人博客，搜索一番，比较火的有三种方式：`Jekyll`、`Hugo`、`Hexo`
+
+最终选择 `Hexo` ，官网及参考主题链接如下
 
 [<u>【hexo 官方网站】</u>](https://hexo.io/zh-cn/)        [<u>【icarus 主题】</u>](https://github.com/ppoffice/hexo-theme-icarus)        [<u>【next 主题】</u>](https://github.com/next-theme/hexo-theme-next)
 
@@ -19,21 +21,22 @@ categories:
 
 ## 搭建步骤
 
-分三步：安装、配置、部署。
-
 ### 【安装】
 
 ```bash
 # 安装 hexo
 npm install hexo-cli -g
 
-# 第一种方案，下载主题代码
-git clone https://github.com/ppoffice/hexo-theme-icarus.git -b site
-cd hexo-theme-icarus
-cnpm install
-# 安装时发现某些依赖不满足，package.json中没有声明，需要自行安装
-cnpm install canvas@^2.5.0
-cnpm install
+hexo init blog
+cd blog
+# 初始化 git 仓库
+git init
+# 将 icarus 工程 设置为子模块
+git submodule add https://github.com/ppoffice/hexo-theme-icarus.git  themes/icarus
+
+
+yarn install
+# 根据提示安装缺失依赖
 
 hexo clean
 hexo server
@@ -46,7 +49,7 @@ hexo server
 
 参考[【icarus主题配置】](https://blog.zhangruipeng.me/hexo-theme-icarus/Configuration/icarus%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/#more)
 
-主要在 _config.yml 、 _config.icarus.yml 、 _config.post.yml
+配置 _config.yml 、 _config.icarus.yml 、 _config.post.yml
 
 #### _config.yml
 
@@ -598,13 +601,11 @@ widgets:
 
 ### 【部署】
 
-部署方面我是用了 [【Github Pages】](https://pages.github.com/)
+部署使用 [【Github Pages】](https://pages.github.com/)
 
-如何在 Github 上建立自己的个人博客，请自行搜索。
+策略是，将 `master` 分支的 `/docs` 文件夹作为博客根目录。
 
-我采用的策略是，将 `master` 分支的 `/docs` 文件夹作为博客根目录。
-
-这样的话只需要将生成的静态文件输出到 `/docs` 文件夹，再提交代码就能达到更新的效果。
+这样只需要将生成的静态文件输出到 `/docs` 文件夹，再提交代码就能达到更新的效果。
 
 上面的 `_config.yml` 配置文件中已经将输出目录变更为 `/docs`
 
@@ -635,7 +636,7 @@ $ tree
     └── gallery
 ```
 
-最后写一个发布脚本，即 push.sh （记得加执行权限 `chmod +x push.sh`）
+最后写一个发布脚本，即 **push.sh** （加执行权限 `chmod +x push.sh`）
 
 ```bash
 git pull
