@@ -27,20 +27,33 @@ categories:
 # 安装 hexo
 npm install hexo-cli -g
 
+# 新建项目
 hexo init blog
 cd blog
+
+echo >> .gitignore
+echo .vscode >> .gitignore
+echo .idea >> .gitignore
+
 # 初始化 git 仓库
 git init
+
 # 将 icarus 工程 设置为子模块
 git submodule add https://github.com/ppoffice/hexo-theme-icarus.git  themes/icarus
 
-
+hexo config theme icarus
 yarn install
-# 根据提示安装缺失依赖
+
 
 hexo clean
+# 根据提示安装缺失依赖 !!!
+# 根据提示安装缺失依赖 !!!
+# 根据提示安装缺失依赖 !!!
+# yarn add bulma-stylus@0.8.0 hexo-renderer-inferno@^0.1.3 hexo-component-inferno@^0.10.5 inferno@^7.3.3 inferno-create-element@^7.3.3
 hexo server
 
+git add .
+git commit -m "commit"
 ```
 
 
