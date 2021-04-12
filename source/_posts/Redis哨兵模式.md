@@ -63,7 +63,7 @@ Sentinel 系统用于管理多个 Redis 服务器（instance）， 该系统执�
 
 实际上，每个哨兵节点每秒通过 ping 去进行心跳监测（包括所有 redis 实例和 sentinel 同伴），并根据回复判断节点是否在线。
 
-如果某个 sentinel 线程发现主库没有在给定时间（ down-after-milliseconds）内响应这个 PING，则这个 sentinel 线程认为主库是不可用的，这种情况叫 “主观失效”（即SDOWN）；这种情况一般不会引起马上的故障自动转移，但是当多个 sentinel 线程确实发现主库是不可用并超过 sentinel.conf 里面的配置项 sentinel monitor mymaster {#ip} {#port} {#number} 中的 #number 时候（这里实际上采用了流言协议），一般其余 sentinel 线程会通过 RAFT 算法推举领导的 sentinel 线程负责主库的客观下线并同时负责故障自动转移，这种情况叫 “客观失效”（即 ODOWN）。
+如果某个 sentinel 线程发现主库没有在给定时间（ down-after-milliseconds）内响应这个 PING，则这个 sentinel 线程认为主库是不可用的，这种情况叫 “主观失效”（即SDOWN）；这种情况一般不会引起马上的故障自动转移，但是当多个 sentinel 线程确实发现主库是不可用并超过 sentinel.conf 里面的配置项 sentinel monitor mymaster `#ip` `#port` `#number` 中的 #number 时候（这里实际上采用了流言协议），一般其余 sentinel 线程会通过 RAFT 算法推举领导的 sentinel 线程负责主库的客观下线并同时负责故障自动转移，这种情况叫 “客观失效”（即 ODOWN）。
 
 具体流程如下图所示：
 
