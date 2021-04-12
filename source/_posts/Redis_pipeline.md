@@ -1,6 +1,6 @@
 ---
 title: Redis pipeline
-date:  2021-04-12 21:56:29
+date:  2021-04-12 22:00:29
 toc: true
 tags: 
 - redis

@@ -1,6 +1,6 @@
 ---
 title: Redis主从模式
-date:  2021-04-12 21:56:44
+date:  2021-04-12 22:18:44
 toc: true
 tags: 
 - redis

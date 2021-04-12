@@ -1,6 +1,6 @@
 ---
 title: Redis数据持久化RDB与AOF
-date:  2021-04-12 21:56:39
+date:  2021-04-12 22:12:39
 toc: true
 tags: 
 - redis
