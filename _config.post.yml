@@ -22,7 +22,7 @@ widgets:
         # Author's current location
         location: 中国 北京
         # URL or path to the avatar image
-        avatar: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-29-125257.jpg
+        avatar: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2021-04-12-011456.jpg
         # Whether show the rounded avatar image
         avatar_rounded: true
         # Email address for the Gravatar

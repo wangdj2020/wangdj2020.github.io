@@ -6,8 +6,9 @@ cover: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-30-040528
 thumbnail: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-30-040528.png!1000px
 tags: 
 - hexo
+- 2020
 categories:
-- Learn & Think
+- 知识体系
 - Blog
 ---
 
