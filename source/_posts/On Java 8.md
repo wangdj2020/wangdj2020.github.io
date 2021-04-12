@@ -7,7 +7,6 @@ tags:
 - 2020
 categories:
 - 知识体系
-- Java
 ---
 
 《On Java 8》是 Java 编程思想 基于 jdk8 的新书。

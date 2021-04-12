@@ -2,14 +2,11 @@
 title: Hexo 搭建个人博客网站
 date: 2020-08-30 11:10:21
 toc: true
-cover: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-30-040528.png
-thumbnail: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-30-040528.png!1000px
 tags: 
 - hexo
 - 2020
 categories:
 - 知识体系
-- Blog
 ---
 
 最近想好好整一整个人博客，搜索一番，比较火的有三种方式：`Jekyll`、`Hugo`、`Hexo`
@@ -370,7 +367,7 @@ widgets:
         # Author's current location
         location: 中国 北京
         # URL or path to the avatar image
-        avatar: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-29-125257.jpg
+        avatar: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2021-04-12-011456.jpg
         # Whether show the rounded avatar image
         avatar_rounded: true
         # Email address for the Gravatar
@@ -533,7 +530,7 @@ widgets:
         # Author's current location
         location: 中国 北京
         # URL or path to the avatar image
-        avatar: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2020-08-29-125257.jpg
+        avatar: https://wdj-1252419878.cos.ap-beijing.myqcloud.com/blog/2021-04-12-011456.jpg
         # Whether show the rounded avatar image
         avatar_rounded: true
         # Email address for the Gravatar
