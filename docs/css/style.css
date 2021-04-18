@@ -10818,8 +10818,16 @@ article.article .content {
 article.article .content h1 {
   font-size: 1.75em;
 }
+article.article .content h2:before {
+  content: "✔";
+  font-weight: bold;
+  color: #ffb11b;
+  margin-right: 4px;
+}
 article.article .content h2 {
   font-size: 1.5em;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
 }
 article.article .content h3 {
   font-size: 1.25em;
