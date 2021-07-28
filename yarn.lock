@@ -1555,10 +1555,10 @@ hexo-cli@^4.0.0:
     resolve "^1.11.0"
     tildify "^2.0.0"
 
-hexo-component-inferno@^0.10.5:
-  version "0.10.5"
-  resolved "https://registry.npm.taobao.org/hexo-component-inferno/download/hexo-component-inferno-0.10.5.tgz#0fbfa427a539e2340e5b8b37088df12dcc81a988"
-  integrity sha1-D7+kJ6U54jQOW4s3CI3xLcyBqYg=
+hexo-component-inferno@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.nlark.com/hexo-component-inferno/download/hexo-component-inferno-0.12.0.tgz#b0ec6cea154fa3030c11ebbe0d6b1b5091c4ff98"
+  integrity sha1-sOxs6hVPowMMEeu+DWsbUJHE/5g=
   dependencies:
     ajv "^6.10.2"
     inferno "^7.3.3"
